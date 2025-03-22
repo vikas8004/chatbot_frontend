@@ -48,7 +48,11 @@ const Sidebar = () => {
     const fetchMessages = async (threadId) => {
         try {
             setMessageLoading(true);
-            const messages = await axiosInstance.get(`${BASE_URL}/messages/${threadId}`);
+            const messages = await axiosInstance.get(`${BASE_URL}/messages/${threadId}`, {
+                headers: {
+                    Authorization: user.access_token
+                }
+            });
             // console.log("messages", messages.data);
             if (messages.status === 200) {
                 dispatch(setMessages(messages.data.messages));

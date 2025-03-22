@@ -70,7 +70,11 @@ const ChatBot = ({ isOpen, setIsOpen }) => {
       };
 
       // Call API for AI response
-      const response = await axiosInstance.post(`${BASE_URL}/generate`, userData);
+      const response = await axiosInstance.post(`${BASE_URL}/generate`, userData, {
+        headers: {
+          "Authorization": user.access_token
+        }
+      });
 
       if (response.status === 200) {
         // Append AI response in a serializable way
@@ -108,7 +112,11 @@ const ChatBot = ({ isOpen, setIsOpen }) => {
   // logout user
   const logoutUser = async () => {
     try {
-      const response = await axiosInstance.get(`${BASE_URL}/user/logout`)
+      const response = await axiosInstance.get(`${BASE_URL}/user/logout`, {
+        headers: {
+          "Authorization": user.access_token
+        }
+      })
       if (response.status === 200) {
         dispatch(setUser(null));
         navigate("/auth");
