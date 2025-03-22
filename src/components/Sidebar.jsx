@@ -48,6 +48,9 @@ const Sidebar = () => {
     const fetchMessages = async (threadId) => {
         try {
             setMessageLoading(true);
+            if (isMobile) {
+                setIsOpen(false)
+            }
             const messages = await axiosInstance.get(`${BASE_URL}/messages/${threadId}`, {
                 headers: {
                     Authorization: user.access_token
@@ -56,6 +59,7 @@ const Sidebar = () => {
             // console.log("messages", messages.data);
             if (messages.status === 200) {
                 dispatch(setMessages(messages.data.messages));
+
             }
 
         } catch (error) {
@@ -98,7 +102,7 @@ const Sidebar = () => {
         <Flex h="100vh" >
             {/* Sidebar */}
             <Box
-                w={isOpen ? "20%" : "0px"}
+                w={isOpen ? ["100%", "40%", "30%", "20%"] : "0px"}
                 bg="gray.900"
                 color="white"
                 transition="width 0.3s"
@@ -131,6 +135,9 @@ const Sidebar = () => {
                             onClick={() => {
                                 dispatch(setThread(uuidv4()));
                                 dispatch(setMessages([]));
+                                if (isMobile) {
+                                    setIsOpen(false)
+                                }
                             }}
                         >
                             <FaRegEdit />
@@ -142,10 +149,10 @@ const Sidebar = () => {
                     {
 
                         threads.length ? threads.map((ele, i) => {
-                            return <Box display={"flex"} justifyContent={"space-between"} alignItems={"center"} p={"2"} as={"span"} style={{
+                            return <Box display={"flex"} justifyContent={"space-between"} alignItems={"center"} p={"1"} as={"span"} style={{
                                 backgroundColor: thread === ele.thread_id ? "#2f2f2f" : "transparent",
                                 borderRadius: "10px"
-                            }} key={i} cursor={"pointer"} >
+                            }} key={i} cursor={"pointer"} mb={"-10px"}>
                                 <Text onClick={() => {
                                     dispatch(setThread(ele.thread_id))
                                     fetchMessages(ele.thread_id)
@@ -187,8 +194,8 @@ const Sidebar = () => {
             </Box>
 
             {/* Main Content */}
-            <Box flex="1" width={open ? "80%" : "99%"} >
-                <ChatBot msgs={msgs} isOpen={isOpen} setIsOpen={setIsOpen} />
+            <Box flex="1" width={open ? ["0px", "60%", "70%", "80"] : "100%"} display={[isOpen ? "none" : "block", "block", "block", "block"]} >
+                <ChatBot msgs={msgs} isOpen={isOpen} setIsOpen={setIsOpen} fetchThreads={fetchThreads} />
             </Box>
         </Flex>
     );
