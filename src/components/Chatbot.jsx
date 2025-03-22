@@ -126,7 +126,7 @@ const ChatBot = ({ isOpen, setIsOpen, fetchThreads }) => {
 
   return (
     <Container width={"100%"} height='100vh' display='flex' flexDirection='column' justifyContent='center' alignItems={"center"} pt={'10px'} border={"1px solid #303030"}>
-      <HStack py={0} color="white" justifyContent={"space-between"} width={"100%"}>
+      <HStack py={0} color="white" justifyContent={"space-between"} width={"100%"} mb={"10px"}>
         <Flex alignItems="center" direction={"row"} justifyContent={"center"}>
           {!isOpen && (
             <IconButton aria-label="Toggle Sidebar" onClick={() => setIsOpen(!isOpen)} variant="ghost" color="white" _hover={{ bg: "transparent" }}>
@@ -145,7 +145,7 @@ const ChatBot = ({ isOpen, setIsOpen, fetchThreads }) => {
         <Menu.Root>
           <Menu.Trigger asChild>
             <Button bg={"transparent"} _hover={{ bg: "transparent" }} _active={{ bg: "transparent" }}>
-              <Avatar.Root>
+              <Avatar.Root size={["md"]}>
                 <Avatar.Fallback name={user.fullname} />
               </Avatar.Root>
             </Button>
