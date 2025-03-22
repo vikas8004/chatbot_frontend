@@ -13,7 +13,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { toaster } from "./ui/toaster";
 
 const Sidebar = () => {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
     const isMobile = useBreakpointValue({ base: true, md: false });
     const [msgs, setMsgs] = useState([])
     const toggleSidebar = () => setIsOpen(!isOpen);
